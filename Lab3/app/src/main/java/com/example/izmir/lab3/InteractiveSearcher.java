@@ -130,8 +130,10 @@ public class InteractiveSearcher extends EditText {
 
             if (InteractiveSearcher.this.ID == theResult.getID()) {
                 InteractiveSearcher.this.listItems = theResult.getList();
-                InteractiveSearcher.this.myAdapter = new ArrayAdapter<String>(theContext, R.layout.support_simple_spinner_dropdown_item, listItems);
-                InteractiveSearcher.this.theListPopup.setAdapter(myAdapter);
+               // InteractiveSearcher.this.myAdapter = new ArrayAdapter<String>(theContext, R.layout.support_simple_spinner_dropdown_item, listItems);
+                //InteractiveSearcher.this.theListPopup.setAdapter(myAdapter);
+                InteractiveSearcher.this.theAdapter = new itemAdapter(theContext,listItems);
+                InteractiveSearcher.this.theListPopup.setAdapter(theAdapter);
                 InteractiveSearcher.this.theListPopup.show();
 
 
@@ -151,6 +153,7 @@ public class InteractiveSearcher extends EditText {
     private String searchText = "";
     private int nrResults=4;
     private int minSearchLength =3;
+    private itemAdapter theAdapter;
 
     public InteractiveSearcher(Context context) {
         super(context);
@@ -161,11 +164,13 @@ public class InteractiveSearcher extends EditText {
     private void init() {
         this.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         theListPopup = new ListPopupWindow(theContext);
-        //Move to main activity later
-        theListPopup.setListSelector(getResources().getDrawable(R.drawable.list_item_selector));
+        //theListPopup.setListSelector(getResources().getDrawable(R.drawable.list_item_selector));
         listItems = new ArrayList<>();
-        myAdapter = new ArrayAdapter<String>(theContext, R.layout.support_simple_spinner_dropdown_item, listItems);
-        theListPopup.setAdapter(myAdapter);
+       // myAdapter = new ArrayAdapter<String>(theContext, R.layout.support_simple_spinner_dropdown_item, listItems);
+        //theListPopup.setAdapter(myAdapter);
+        theAdapter = new itemAdapter(theContext,listItems);
+        theListPopup.setAdapter(theAdapter);
+
         theListPopup.setAnchorView(this);
         this.addTextChangedListener(onTextChange);
 
